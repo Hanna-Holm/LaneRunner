@@ -1,4 +1,4 @@
-﻿using Raylib_cs;
+﻿
 using LaneRunner.Collisions;
 using LaneRunner.Lanes.Grids;
 using LaneRunner.Players;
@@ -13,8 +13,8 @@ namespace LaneRunner.Weapons
         public RandomWeaponBehaviourGenerator WeaponBehaviourGenerator { get; } = new();
         private LaserRenderer _laserRenderer = new LaserRenderer();
         public WeaponShot WeaponShot;
-        private int _visualTimer = 0;
-        private int _removeVisualThreshold = 5;
+        private int _showVisualsTimer = 0;
+        private int _removeVisualsThreshold = 4;
 
         public LaserWeapon()
         {
@@ -32,7 +32,7 @@ namespace LaneRunner.Weapons
             var playerXPosition = playerGrid.Where(x => x != null)
                 .FirstOrDefault().XPosition;
             WeaponBehaviour.Projectile(playerXPosition, weaponShotGrid, WeaponShot);
-            _visualTimer = 0;
+            _showVisualsTimer = 0;
         }
 
         public void Update(Grid<WeaponShot> weaponShotGrid,
@@ -58,9 +58,9 @@ namespace LaneRunner.Weapons
                 }
             }
 
-            _visualTimer += 1;
+            _showVisualsTimer += 1;
 
-            if (_visualTimer > _removeVisualThreshold)
+            if (_showVisualsTimer > _removeVisualsThreshold)
             {
                 var weaponShotsToRemove = new List<WeaponShot>();
 

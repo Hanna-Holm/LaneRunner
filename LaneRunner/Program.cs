@@ -1,4 +1,6 @@
 ﻿
+using Raylib_cs;
+
 namespace LaneRunner
 {
     internal class Program

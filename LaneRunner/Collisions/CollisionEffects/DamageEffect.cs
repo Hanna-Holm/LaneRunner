@@ -8,6 +8,12 @@ namespace LaneRunner.Collisions.CollisionEffects
     {
         private readonly int _amount = 1;
         public Color Color { get; } = Color.Red;
+        public Texture2D Texture { get; }
+
+        public DamageEffect(Texture2D texture)
+        {
+            Texture = texture;
+        }
 
         public void ApplyCollisionEffect(IPlayer player)
         {

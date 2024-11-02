@@ -56,7 +56,7 @@ namespace LaneRunner.UI.Rendering
                 int xPosition = originX + item.XPosition * _cellWidth;
                 int yPosition = originY + item.YPosition * _cellHeight;
 
-                Raylib.DrawRectangle(xPosition, yPosition, _cellWidth, _cellHeight, item.Value.Color);
+                Raylib.DrawTexture(item.Value.CollisionEffect.Texture, xPosition, yPosition, item.Value.Color);
             }
         }
 

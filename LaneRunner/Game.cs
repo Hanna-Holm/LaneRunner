@@ -24,10 +24,6 @@ namespace LaneRunner
 
         public void Run()
         {
-            // I got the methods InitWindow(width, height, title), the while-loop with
-            // !Raylib.WindowShouldClode() and the methods BeginDrawing(),
-            // ClearBackground(), EndDrawing() and CloseWindow() in the README-file
-            // included in the folder received after installation (for example at C:/raylib)
             Raylib.InitWindow(_windowWidth, _windowHeight, _gameTitle);
             Raylib.SetTargetFPS(_framesPerSecond);
 
@@ -47,7 +43,6 @@ namespace LaneRunner
                     break;
                 }
 
-                // Drawing
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
                 var laneRenderer = new LaneRenderer();
