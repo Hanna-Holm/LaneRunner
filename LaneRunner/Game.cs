@@ -29,26 +29,39 @@ namespace LaneRunner
             laneRenderer.InitializeTextures();
             Raylib.SetTargetFPS(_framesPerSecond);
 
+            bool gameOver = false;
+            string gameOverMessage = "";
+
             while (!Raylib.WindowShouldClose())
             {
                 timer = Raylib.GetFrameTime();
                 _firstLane.Update(timer);
+                _secondLane.Update(timer);
+
                 if (_firstLane.Player.Health <= 0)
                 {
-                    Console.WriteLine("Computer wins!");
-                    break;
+                    gameOver = true;
+                    gameOverMessage = "Computer wins! Press <Esc> to close window.";
                 }
-                _secondLane.Update(timer);
-                if (_secondLane.Player.Health <= 0)
+                else if (_secondLane.Player.Health <= 0)
                 {
-                    Console.WriteLine("You win!");
-                    break;
+                    gameOver = true;
+                    gameOverMessage = "Congratulations! You win! Press <Esc> to close window.";
+                }
+                else
+                {
+                    laneRenderer.Render(_firstLane);
+                    laneRenderer.Render(_secondLane);
                 }
 
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
-                laneRenderer.Render(_firstLane);
-                laneRenderer.Render(_secondLane);
+
+                if (gameOver)
+                {
+                    Raylib.DrawText(gameOverMessage, _windowWidth / 5, _windowHeight / 3, 30, Color.Black);
+                }
+
                 Raylib.EndDrawing();
             }
 
