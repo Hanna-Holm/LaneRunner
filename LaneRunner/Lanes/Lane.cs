@@ -40,7 +40,6 @@ namespace LaneRunner.Lanes
             PlayerGrid.SetCellValue(_startColumnOfPlayer, _startRowOfPlayer, Player);
 
             CollideablesGrid = new Grid<Collideable>(numberOfColumns, numberOfRows);
-            CollideablesGrid.SetCellValue(_startColumnOfPlayer, 0, new Collideable(new DamageEffect()));
 
             Player.GetAccessToCollideablesGrid(CollideablesGrid);
 
@@ -110,8 +109,8 @@ namespace LaneRunner.Lanes
         private void SpawnCollideables()
         {
             int randomXValue = randomizer.Next(0, CollideablesGrid.Columns);
-            var randomCollisionStrategy = _collisionEffectGenerator.GetRandomCollisionEffect();
-            CollideablesGrid.SetCellValue(randomXValue, 0, new Collideable(randomCollisionStrategy));
+            var randomCollisionEffect = _collisionEffectGenerator.GetRandomCollisionEffect();
+            CollideablesGrid.SetCellValue(randomXValue, 0, new Collideable(randomCollisionEffect));
         }
 
         private void UpdateWeaponGrid()

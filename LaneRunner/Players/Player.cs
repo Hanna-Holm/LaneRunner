@@ -11,7 +11,7 @@ namespace LaneRunner.Players
         public IPlayMechanism PlayMechanism { get; }
         public Rectangle Shape;
         public int Health { get; private set; } = 3;
-        private bool _isImmune = false;
+        public bool IsImmune { get; private set; } = false;
         public IWeapon Weapon { get; set; }
         public bool HasWeapon = false;
         public Collider Collider { get; }
@@ -52,10 +52,10 @@ namespace LaneRunner.Players
 
         public void TakeDamage(int amount)
         {
-            if (_isImmune)
+            if (IsImmune)
             {
                 Console.WriteLine("You got away from one damage by using your immunity!");
-                _isImmune = false;
+                IsImmune = false;
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace LaneRunner.Players
 
         public void AddImmunity(int amount)
         {
-            _isImmune = true;
+            IsImmune = true;
         }
 
         public void AddWeapon(IWeapon weapon)

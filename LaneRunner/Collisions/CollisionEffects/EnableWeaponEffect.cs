@@ -8,12 +8,18 @@ namespace LaneRunner.Collisions.CollisionEffects
     internal class EnableWeaponEffect : ICollisionEffect
     {
         public Color Color { get; } = Color.Blue;
+        public Texture2D Texture { get; }
         private Random _random = new Random();
         private List<IWeapon> _weapons = new List<IWeapon>
         {
             new BulletWeapon(),
             new LaserWeapon()
         };
+
+        public EnableWeaponEffect(Texture2D texture)
+        {
+            Texture = texture;
+        }
 
         public void ApplyCollisionEffect(IPlayer player)
         {
