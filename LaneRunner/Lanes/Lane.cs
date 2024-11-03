@@ -3,7 +3,6 @@ using LaneRunner.Collisions;
 using LaneRunner.Lanes.Grids;
 using LaneRunner.Players;
 using LaneRunner.Weapons;
-using Raylib_cs;
 
 namespace LaneRunner.Lanes
 {

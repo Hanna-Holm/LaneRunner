@@ -9,14 +9,14 @@ namespace LaneRunner.Collisions.CollisionEffects
 
         public ICollisionEffect GetRandomCollisionEffect()
         {
-            Texture2D weaponTexture;
-            Texture2D damageTexture;
+            Texture2D weaponTexture = Raylib.LoadTexture("../../../UI/Assets/weapon.PNG"); ;
+            Texture2D damageTexture = Raylib.LoadTexture("../../../UI/Assets/bomb-shine.PNG"); ;
             Texture2D immunityTexture = Raylib.LoadTexture("../../../UI/Assets/apple.PNG");
 
             ICollisionEffect[] _collisionEffects =
                 [
-                    new EnableWeaponEffect(immunityTexture),
-                    new DamageEffect(immunityTexture),
+                    new EnableWeaponEffect(weaponTexture),
+                    new DamageEffect(damageTexture),
                     new ImmunityEffect(immunityTexture)
                 ];
 

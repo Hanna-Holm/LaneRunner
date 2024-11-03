@@ -16,6 +16,7 @@ namespace LaneRunner.Collisions.CollisionDetection
                     var player = playerGrid.GetCellValue(
                         collideableItem.XPosition, collideableItem.YPosition).Value;
                     collideableItem.Value.ApplyCollisionEffect(player);
+                    collideablesGrid.RemoveGridItem(collideableItem.XPosition, collideableItem.YPosition);
                     return true;
                 }
             }

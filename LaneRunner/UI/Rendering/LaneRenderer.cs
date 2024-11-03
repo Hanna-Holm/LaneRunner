@@ -56,7 +56,7 @@ namespace LaneRunner.UI.Rendering
                 int xPosition = originX + item.XPosition * _cellWidth;
                 int yPosition = originY + item.YPosition * _cellHeight;
 
-                Raylib.DrawTexture(item.Value.CollisionEffect.Texture, xPosition, yPosition, item.Value.Color);
+                Raylib.DrawTexture(item.Value.CollisionEffect.Texture, xPosition, yPosition, Color.White);
             }
         }
 
