@@ -46,6 +46,11 @@ namespace LaneRunner.Lanes
             WeaponShotsGrid = new Grid<WeaponShot>(numberOfColumns, numberOfRows);
         }
 
+        public void LoadTextures()
+        {
+            _collisionEffectGenerator.LoadTextures();
+        }
+
         public void Update(float secondsSinceLastFrame)
         {
             UpdatePlayerGrid();

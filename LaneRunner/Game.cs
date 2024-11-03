@@ -29,6 +29,8 @@ namespace LaneRunner
             Raylib.InitWindow(_windowWidth, _windowHeight, _gameTitle);
             var laneRenderer = new LaneRenderer();
             laneRenderer.InitializeTextures();
+            _firstLane.LoadTextures();
+            _secondLane.LoadTextures();
             Raylib.SetTargetFPS(_framesPerSecond);
 
             bool gameOver = false;
