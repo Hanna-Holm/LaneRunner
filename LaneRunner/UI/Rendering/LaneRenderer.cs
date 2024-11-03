@@ -21,6 +21,7 @@ namespace LaneRunner.UI.Rendering
         private Texture2D _threeLivesTexture;
         private Texture2D _twoLivesTexture;
         private Texture2D _oneLifeTexture;
+        private Texture2D _playerTexture;
 
         private int healthBarYPosition;
         private int _healthBarXPosition;
@@ -34,6 +35,7 @@ namespace LaneRunner.UI.Rendering
             _threeLivesTexture = Raylib.LoadTexture("../../../UI/Assets/lives-three.PNG");
             _twoLivesTexture = Raylib.LoadTexture("../../../UI/Assets/lives-two.PNG");
             _oneLifeTexture = Raylib.LoadTexture("../../../UI/Assets/lives-one.PNG");
+            _playerTexture = Raylib.LoadTexture("../../../UI/Assets/player-texture.PNG");
         }
 
         public void Render(Lane lane)
@@ -81,7 +83,7 @@ namespace LaneRunner.UI.Rendering
             {
                 int xPosition = _originX + item.XPosition * _cellWidth;
                 int yPosition = _originY + item.YPosition * _cellHeight;
-                Raylib.DrawRectangle(xPosition, yPosition, _cellWidth, _cellHeight, cellColor);
+                Raylib.DrawTexture(_playerTexture, xPosition, yPosition, Color.White);
             }
         }
 
