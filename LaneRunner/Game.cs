@@ -14,6 +14,8 @@ namespace LaneRunner
         private Lane _firstLane;
         private Lane _secondLane;
         private float timer;
+        private string _computerWinsMsg = "Computer wins! Press <Esc> to close window.";
+        private string _humanWinsMsg = "Congratulations! You win! Press <Esc> to close window.";
 
         public Game()
         {
@@ -41,12 +43,12 @@ namespace LaneRunner
                 if (_firstLane.Player.Health <= 0)
                 {
                     gameOver = true;
-                    gameOverMessage = "Computer wins! Press <Esc> to close window.";
+                    gameOverMessage = _computerWinsMsg;
                 }
                 else if (_secondLane.Player.Health <= 0)
                 {
                     gameOver = true;
-                    gameOverMessage = "Congratulations! You win! Press <Esc> to close window.";
+                    gameOverMessage = _humanWinsMsg;
                 }
                 else
                 {
