@@ -34,10 +34,20 @@ namespace LaneRunner.UI.Rendering
             /*
                KRAV 5:
                1. Koncept: LINQ method syntax.
-               2. Hur: 
-               3: Varför: 
+               2. Hur: Vi använder LINQ-methoden .Where() på playerGrid som är en kollektion.
+                    Vi skickar in ett argument i form av en delegat som vi uttrycker med ett
+                    lambda expression: (item => item != null), som säger att vi vill filtrera
+                    på de items som inte är null och endast ha kvar de värden som inte är det.
+                    Själva exekveringen av queryt sker sedan först i foreach-loopen där vi 
+                    faktiskt försöker nå elementen, eftersom har så kallad lazy evaluation
+                    vilket betyder att LINQ bara skapar en query-definition vid användningen 
+                    av olika LINQ-metoder, och utför inte operationerna förrän man efterfrågar
+                    elementen.
+               3: Varför: LINQ förenklar hantering av kollektioner genom att erbjuda en effektiv 
+                    och koncis syntax för olika operationer, och är speciellt användbart vid
+                    mer komplexa operationer. LINQ gör även att typ-säkerheten behålls.
             */
-            var gridItems = playerGrid.Where(item => item != null).ToList();
+            var gridItems = playerGrid.Where(item => item != null);
 
             foreach (var item in gridItems)
             {
@@ -49,7 +59,7 @@ namespace LaneRunner.UI.Rendering
 
         private void RenderCollideables(Grid<Collideable> collideablesGrid, int originX, int originY)
         {
-            var gridItems = collideablesGrid.Where(item => item != null).ToList();
+            var gridItems = collideablesGrid.Where(item => item != null);
 
             foreach (var item in gridItems)
             {
@@ -62,7 +72,7 @@ namespace LaneRunner.UI.Rendering
 
         private void RenderWeaponShots(Grid<WeaponShot> weaponShotsGrid, int originX, int originY)
         {
-            var gridItems = weaponShotsGrid.Where(item => item != null).ToList();
+            var gridItems = weaponShotsGrid.Where(item => item != null);
 
             foreach (var item in gridItems)
             {

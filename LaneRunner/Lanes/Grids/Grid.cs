@@ -26,8 +26,21 @@ namespace LaneRunner.Lanes.Grids
     /*
        KRAV 4:
        1. Koncept: Enumerable & enumerator.
-       2. Hur: 
-       3. Varför: 
+       2. Hur: Vår generiska Grid-klass implementerar interfacet IEnumerable<GridItem<T>>.
+            Detta gör att vår Grid blir ett itererbart objekt i form av en kollektion av 
+            GridItem<T>. Vi får en enumerator via GetEnumerator() och denna används för att 
+            iterera över vårt Grid-objekt med exempelvis en foreach-loop och hämta ut ett 
+            värde i taget av dess GridItems (vår _cells array). GetEnumerator() har själva 
+            logiken för hur vi ska hämta varje objekt i vår _cells-array. Anropet till 
+            GetEnumerator() sker implicit i en foreach. När vi kommer till yield return 
+            _cells[columnNumber, rowNumber] lämnas detta värde tillbaka och exekveringen 
+            pausas tills nästa värde efterfrågas utifrån (i foreachen). Så exempelvis för 
+            vår konkreta Grid<Collideable> så innebär detta att vi kan iterera över 
+            Grid<Collideable> och få ut alla värden på varje GridItem<Collideable> i _cells.
+       3. Varför: Vi kan med enkelhet ändra hur värden ska lämnas tillbaka genom att ändra i 
+            vår iterationslogik i GetEnumerator(), utan att detta påverkar klienten som vill 
+            iterera över Grid utifrån. Klienten och iterationslogiken är alltså decouplat och 
+            klienten vet ingenting om själva implementationen av GetEnumerator().
     */
     internal class Grid<T> : IEnumerable<GridItem<T>>
     {
