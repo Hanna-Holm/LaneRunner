@@ -9,7 +9,7 @@ namespace LaneRunner.Collisions.CollisionEffects
 
         public ICollisionEffect GetRandomCollisionEffect()
         {
-            Texture2D weaponTexture = Raylib.LoadTexture("../../../UI/Assets/weapon.PNG"); ;
+            Texture2D weaponTexture = Raylib.LoadTexture("../../../UI/Assets/weapon-rot.PNG"); ;
             Texture2D damageTexture = Raylib.LoadTexture("../../../UI/Assets/bomb-shine.PNG"); ;
             Texture2D immunityTexture = Raylib.LoadTexture("../../../UI/Assets/apple.PNG");
 

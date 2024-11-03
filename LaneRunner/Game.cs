@@ -6,7 +6,7 @@ namespace LaneRunner
 {
     internal class Game
     {
-        private int _windowWidth = 1100;
+        private int _windowWidth = 1200;
         private readonly int _windowHeight = 700;
         private readonly int _framesPerSecond = 60;
         private readonly string _gameTitle = "LaneRunner";
@@ -25,6 +25,8 @@ namespace LaneRunner
         public void Run()
         {
             Raylib.InitWindow(_windowWidth, _windowHeight, _gameTitle);
+            var laneRenderer = new LaneRenderer();
+            laneRenderer.InitializeTextures();
             Raylib.SetTargetFPS(_framesPerSecond);
 
             while (!Raylib.WindowShouldClose())
@@ -45,12 +47,12 @@ namespace LaneRunner
 
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
-                var laneRenderer = new LaneRenderer();
                 laneRenderer.Render(_firstLane);
                 laneRenderer.Render(_secondLane);
                 Raylib.EndDrawing();
             }
 
+            laneRenderer.UnloadTextures();
             Raylib.CloseWindow();
         }
     }

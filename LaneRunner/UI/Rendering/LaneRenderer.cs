@@ -14,22 +14,50 @@ namespace LaneRunner.UI.Rendering
         private readonly int _cellHeight = 35;
         private int _width;
         private int _height;
+        private int _originX;
+        private int _originY;
+
+        private Texture2D _healthBar;
+        private Texture2D _threeLivesTexture;
+        private Texture2D _twoLivesTexture;
+        private Texture2D _oneLifeTexture;
+
+        private int healthBarYPosition;
+        private int _healthBarXPosition;
+
+        private int _UIMessagesXPosition;
+        private string _weaponMessage = "You got a weapon! Fire it by pressing <space>";
+        private string _immunityMessage = "You are now immune for one collision!";
+
+        public void InitializeTextures()
+        {
+            _threeLivesTexture = Raylib.LoadTexture("../../../UI/Assets/lives-three.PNG");
+            _twoLivesTexture = Raylib.LoadTexture("../../../UI/Assets/lives-two.PNG");
+            _oneLifeTexture = Raylib.LoadTexture("../../../UI/Assets/lives-one.PNG");
+        }
 
         public void Render(Lane lane)
         {
             _width = lane.PlayerGrid.Columns * _cellWidth;
             _height = lane.PlayerGrid.Rows * _cellHeight;
+            _originX = lane.OriginX;
+            _originY = lane.OriginY;
+
+            healthBarYPosition = _height + 55;
+            _healthBarXPosition = _originX + _width / 3 - 10;
+            _UIMessagesXPosition = _originX - _width / 4;
 
             RenderBackground(lane);
-            RenderPlayer(lane.PlayerGrid, lane.OriginX, lane.OriginY, Color.DarkGray);
-            RenderCollideables(lane.CollideablesGrid, lane.OriginX, lane.OriginY);
-            RenderWeaponShots(lane.WeaponShotsGrid, lane.OriginX, lane.OriginY);
+            RenderPlayer(lane.PlayerGrid, Color.DarkGray);
+            RenderCollideables(lane.CollideablesGrid);
+            RenderWeaponShots(lane.WeaponShotsGrid);
+            RenderUIMessage(lane.PlayerGrid);
         }
 
         private void RenderBackground(Lane lane)
             => Raylib.DrawRectangle(lane.OriginX, lane.OriginY, _width, _height, backgroundColor);
 
-        private void RenderPlayer(Grid<Player> playerGrid, int originX, int originY, Color cellColor)
+        private void RenderPlayer(Grid<Player> playerGrid, Color cellColor)
         {
             /*
                KRAV 5:
@@ -51,36 +79,85 @@ namespace LaneRunner.UI.Rendering
 
             foreach (var item in gridItems)
             {
-                int xPosition = originX + item.XPosition * _cellWidth;
-                int yPosition = originY + item.YPosition * _cellHeight;
+                int xPosition = _originX + item.XPosition * _cellWidth;
+                int yPosition = _originY + item.YPosition * _cellHeight;
                 Raylib.DrawRectangle(xPosition, yPosition, _cellWidth, _cellHeight, cellColor);
             }
         }
 
-        private void RenderCollideables(Grid<Collideable> collideablesGrid, int originX, int originY)
+        private void RenderCollideables(Grid<Collideable> collideablesGrid)
         {
             var gridItems = collideablesGrid.Where(item => item != null);
 
             foreach (var item in gridItems)
             {
-                int xPosition = originX + item.XPosition * _cellWidth;
-                int yPosition = originY + item.YPosition * _cellHeight;
+                int xPosition = _originX + item.XPosition * _cellWidth;
+                int yPosition = _originY + item.YPosition * _cellHeight;
 
                 Raylib.DrawTexture(item.Value.CollisionEffect.Texture, xPosition, yPosition, Color.White);
             }
         }
 
-        private void RenderWeaponShots(Grid<WeaponShot> weaponShotsGrid, int originX, int originY)
+        private void RenderWeaponShots(Grid<WeaponShot> weaponShotsGrid)
         {
             var gridItems = weaponShotsGrid.Where(item => item != null);
 
             foreach (var item in gridItems)
             {
-                int xPosition = originX + item.XPosition * _cellWidth;
-                int yPosition = originY + item.YPosition * _cellHeight;
+                int xPosition = _originX + item.XPosition * _cellWidth;
+                int yPosition = _originY + item.YPosition * _cellHeight;
 
                 item.Value.ShotRenderer.Render(xPosition, yPosition, _cellWidth, _cellHeight);
             }
+        }
+
+        private void RenderUIMessage(Grid<Player> playerGrid)
+        {
+            var player = playerGrid.Where(item => item != null).First();
+            RenderWeaponMessage(player);
+            RenderHealthBar(player);
+            RenderImmunityMessage(player);
+        }
+
+        private void RenderWeaponMessage(GridItem<Player> player)
+        {
+            if (player.Value.HasWeapon == true)
+            {
+                Raylib.DrawText(_weaponMessage, _UIMessagesXPosition, _originY + _height + 10, 20, Color.DarkBlue);
+            }
+        }
+
+        private void RenderHealthBar(GridItem<Player> player)
+        {
+            if (player.Value.Health == 3)
+            {
+                _healthBar = _threeLivesTexture;
+            }
+            else if (player.Value.Health == 2)
+            {
+                _healthBar = _twoLivesTexture;
+            }
+            else if (player.Value.Health == 1)
+            {
+                _healthBar = _oneLifeTexture;
+            }
+
+            Raylib.DrawTexture(_healthBar, _healthBarXPosition, healthBarYPosition, Color.White);
+        }
+
+        private void RenderImmunityMessage(GridItem<Player> player)
+        {
+            if (player.Value.IsImmune)
+            {
+                Raylib.DrawText(_immunityMessage, _UIMessagesXPosition, _originY + _height + 70, 20, Color.DarkBlue);
+            }
+        }
+
+        public void UnloadTextures()
+        {
+            Raylib.UnloadTexture(_threeLivesTexture);
+            Raylib.UnloadTexture(_twoLivesTexture);
+            Raylib.UnloadTexture(_oneLifeTexture);
         }
     }
 }
