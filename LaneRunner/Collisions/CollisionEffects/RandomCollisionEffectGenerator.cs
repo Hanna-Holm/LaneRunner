@@ -24,6 +24,9 @@ namespace LaneRunner.Collisions.CollisionEffects
                 [
                     new EnableWeaponEffect(_weaponTexture),
                     new DamageEffect(_damageTexture),
+                    new DamageEffect(_damageTexture),
+                    new DamageEffect(_damageTexture),
+                    new DamageEffect(_damageTexture),
                     new ImmunityEffect(_immunityTexture)
                 ];
 

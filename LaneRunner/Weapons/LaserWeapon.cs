@@ -45,8 +45,8 @@ namespace LaneRunner.Weapons
 
                 while (currentYPos > 0)
                 {
-                    weaponShotGrid.SetCellValue(shot.XPosition, currentYPos, new WeaponShot(_laserRenderer));
                     int newYPos = currentYPos - 1;
+                    weaponShotGrid.SetCellValue(shot.XPosition, currentYPos, new WeaponShot(_laserRenderer));
 
                     if (collideablesGrid.GetCellValue(shot.XPosition, newYPos) != null)
                     {
@@ -56,6 +56,8 @@ namespace LaneRunner.Weapons
 
                     currentYPos -= 1;
                 }
+
+                weaponShotGrid.SetCellValue(shot.XPosition, currentYPos, new WeaponShot(_laserRenderer));
             }
 
             _showVisualsTimer += 1;

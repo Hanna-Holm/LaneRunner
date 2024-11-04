@@ -26,6 +26,11 @@ namespace LaneRunner
 
         public void Run()
         {
+            /* Funktionerna InitWindow, while-loopens expression !Raylib.WindowShouldClose()),
+             * BeginDrawing(), ClearBackground(), EndDrawing() och CloseWindow() är skelettet 
+             * för en Raylib applikation, och vi fick dessa och deras inbördes ordning från 
+             * https://github.com/chrisdill/raylib-cs under sektionen Hello World! */
+
             Raylib.InitWindow(_windowWidth, _windowHeight, _gameTitle);
             var laneRenderer = new LaneRenderer();
             laneRenderer.InitializeTextures();
@@ -33,6 +38,7 @@ namespace LaneRunner
             _secondLane.LoadTextures();
             Raylib.SetTargetFPS(_framesPerSecond);
 
+            Raylib.HideCursor();
             bool gameOver = false;
             string gameOverMessage = "";
 

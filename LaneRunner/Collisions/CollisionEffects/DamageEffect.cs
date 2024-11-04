@@ -17,7 +17,6 @@ namespace LaneRunner.Collisions.CollisionEffects
 
         public void ApplyCollisionEffect(IPlayer player)
         {
-            Console.WriteLine("Collided with a damaging object!");
             player.TakeDamage(_amount);
         }
     }

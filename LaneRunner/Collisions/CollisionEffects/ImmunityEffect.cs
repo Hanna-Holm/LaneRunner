@@ -16,7 +16,6 @@ namespace LaneRunner.Collisions.CollisionEffects
 
         public void ApplyCollisionEffect(IPlayer player)
         {
-            Console.WriteLine("You are now immune for one collision!");
             player.AddImmunity(_amount);
         }
     }

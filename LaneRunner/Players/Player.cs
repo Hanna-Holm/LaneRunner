@@ -54,7 +54,6 @@ namespace LaneRunner.Players
         {
             if (IsImmune)
             {
-                Console.WriteLine("You got away from one damage by using your immunity!");
                 IsImmune = false;
                 return;
             }

@@ -24,7 +24,6 @@ namespace LaneRunner.Collisions.CollisionEffects
         public void ApplyCollisionEffect(IPlayer player)
         {
             player.AddWeapon(GetRandomWeapon());
-            Console.WriteLine("A weapon was enabled! Use it by pressing spacebar.");
         }
 
         private IWeapon GetRandomWeapon()

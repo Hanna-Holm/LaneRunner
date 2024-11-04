@@ -40,11 +40,6 @@ namespace LaneRunner.Weapons
             {
                 if (shot.YPosition > 0)
                 {
-                    if (collideablesGrid.GetCellValue(shot.XPosition, shot.XPosition) != null)
-                    {
-                        collideablesGrid.RemoveGridItem(shot.XPosition, shot.XPosition);
-                    }
-
                     int newYPos = shot.YPosition - 1;
                     weaponShotGrid.SetCellValue(shot.XPosition, newYPos, new WeaponShot(_bulletRenderer));
 
@@ -52,6 +47,11 @@ namespace LaneRunner.Weapons
                     {
                         collideablesGrid.RemoveGridItem(shot.XPosition, newYPos);
                         weaponShotGrid.RemoveGridItem(shot.XPosition, newYPos);
+                    }
+
+                    if (collideablesGrid.GetCellValue(shot.XPosition, shot.XPosition) != null)
+                    {
+                        collideablesGrid.RemoveGridItem(shot.XPosition, shot.XPosition);
                     }
                 }
 
