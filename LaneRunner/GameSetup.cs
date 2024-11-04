@@ -1,9 +1,10 @@
 ﻿using LaneRunner.Collisions;
 using LaneRunner.Collisions.CollisionDetection;
+using LaneRunner.Lanes;
 using LaneRunner.Players;
 using LaneRunner.Players.PlayerMechanisms;
 
-namespace LaneRunner.Lanes
+namespace LaneRunner
 {
     internal class GameSetup
     {
@@ -21,7 +22,7 @@ namespace LaneRunner.Lanes
             WindowWidth = windowWidth;
             WindowHeight = windowHeight;
             _firstLaneOriginX = windowWidth / 10;
-            _secondLaneOriginX = windowWidth - (windowWidth / 3);
+            _secondLaneOriginX = windowWidth - windowWidth / 3;
 
             SetupLanes();
         }

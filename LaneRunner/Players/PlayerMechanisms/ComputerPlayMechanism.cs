@@ -22,13 +22,13 @@ namespace LaneRunner.Players.PlayerMechanisms
                 && currentPosition < gridWidth / 2
                 && CheckIfDamagingObjectsAhead(collideablesGrid))
             {
-                return --currentPosition;
+                return ++currentPosition;
             }
             else if (currentPosition >= gridWidth / 2
-                && currentPosition < gridWidth - 1
+                && currentPosition < gridWidth
                 && CheckIfDamagingObjectsAhead(collideablesGrid))
             {
-                return ++currentPosition;
+                return --currentPosition;
             }
             else
             {

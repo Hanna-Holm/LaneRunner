@@ -34,7 +34,6 @@ namespace LaneRunner.Players.PlayerMechanisms
         {
             if (Raylib.IsKeyPressed(KeyboardKey.Space)) 
             {
-                Console.WriteLine("You fired a weapon!");
                 weapon.Fire(playerGrid, weaponShotGrid);
                 return true;
             }

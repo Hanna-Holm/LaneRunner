@@ -28,18 +28,11 @@ namespace LaneRunner.Collisions
         */
         public ICollisionEffect CollisionEffect { get; }
         public Color Color { get; private set; }
-        public Rectangle Shape;
 
         public Collideable(ICollisionEffect effect)
         {
             CollisionEffect = effect;
             Color = CollisionEffect.Color;
-
-            Shape = new Rectangle
-            {
-                Height = 35,
-                Width = 35
-            };
         }
 
         public void Update(int x, int y, Grid<Collideable> grid)

@@ -3,6 +3,7 @@ using LaneRunner.Collisions;
 using LaneRunner.Lanes.Grids;
 using LaneRunner.Players;
 using LaneRunner.Weapons;
+using Raylib_cs;
 
 namespace LaneRunner.Lanes
 {
@@ -17,12 +18,16 @@ namespace LaneRunner.Lanes
         public int OriginX { get; }
         public int OriginY { get; }
 
-        private float _updateCollideablePositionTimer = 0;
-        private double _updateCollideablePositionInterval = 0.4;
-        private float _spawnCollideablesTimer = 0;
-        private double _spawnCollideablesInterval = 1.2;
-        private float _updateWeaponShotsPositionTimer = 0;
-        private double _updateWeaponShotsPositionInterval = 0.05;
+        private float _updateCollideablePositionTimer;
+        private double _updateCollideablePositionInterval;
+        private float _spawnCollideablesTimer;
+        private double _spawnCollideablesInterval;
+        private float _updateWeaponShotsPositionTimer;
+        private readonly double _updateWeaponShotsPositionInterval = 0.05;
+        private readonly int _levelTwoThreshold = 20;
+        private readonly int _levelThreeThreshold = 40;
+        private readonly int _levelFourThreshold = 60;
+        private readonly int _levelFiveThreshold = 90;
 
         private Random randomizer = new Random();
         private RandomCollisionEffectGenerator _collisionEffectGenerator
@@ -44,6 +49,8 @@ namespace LaneRunner.Lanes
             Player.GetAccessToCollideablesGrid(CollideablesGrid);
 
             WeaponShotsGrid = new Grid<WeaponShot>(numberOfColumns, numberOfRows);
+
+            SetLevelOneSpeed();
         }
 
         public void LoadTextures()
@@ -54,6 +61,7 @@ namespace LaneRunner.Lanes
         public void Update(float secondsSinceLastFrame)
         {
             UpdatePlayerGrid();
+            CheckIfNewLevel();
 
             _updateCollideablePositionTimer += secondsSinceLastFrame;
             _spawnCollideablesTimer += secondsSinceLastFrame;
@@ -128,6 +136,59 @@ namespace LaneRunner.Lanes
             {
                 Player.Weapon.Update(WeaponShotsGrid, CollideablesGrid, shots);
             }
+        }
+
+        private void CheckIfNewLevel()
+        {
+            if (Raylib.GetTime() > _levelTwoThreshold
+                && Raylib.GetTime() < _levelTwoThreshold + 1)
+            {
+                SetLevelTwoSpeed();
+            }
+            else if (Raylib.GetTime() > _levelThreeThreshold
+                && Raylib.GetTime() < _levelThreeThreshold + 1)
+            {
+                SetLevelThreeSpeed();
+            }
+            else if (Raylib.GetTime() > _levelFourThreshold
+                && Raylib.GetTime() < _levelFourThreshold + 1)
+            {
+                SetLevelFourSpeed();
+            }
+            else if (Raylib.GetTime() > _levelFiveThreshold
+                && Raylib.GetTime() < _levelFiveThreshold + 1)
+            {
+                SetLevelFiveSpeed();
+            }
+        }
+
+        private void SetLevelOneSpeed()
+        {
+            _updateCollideablePositionInterval = 0.5;
+            _spawnCollideablesInterval = 1.5;
+        }
+
+        private void SetLevelTwoSpeed()
+        {
+            _updateCollideablePositionInterval = 0.35;
+            _spawnCollideablesInterval = 1.2;
+        }
+
+        private void SetLevelThreeSpeed()
+        {
+            _updateCollideablePositionInterval = 0.23;
+            _spawnCollideablesInterval = 0.8;
+        }
+
+        private void SetLevelFourSpeed()
+        {
+            _updateCollideablePositionInterval = 0.16;
+            _spawnCollideablesInterval = 0.5;
+        }
+        private void SetLevelFiveSpeed()
+        {
+            _updateCollideablePositionInterval = 0.1;
+            _spawnCollideablesInterval = 0.2;
         }
     }
 }
